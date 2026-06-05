@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>办公常用链接导航</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+       <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#4080FF',
+                        neutral: '#F2F3F5',
+                        'neutral-dark': '#4E5969',
+                        'office-blue': '#4A89DC',
+                        'web-green': '#37BC9B',
+                        'other-yellow': '#F6BB42',
+                        'bank-purple': '#967ADC',
+                        'tool-red': '#DA4453',
+                        'life-orange': '#FF902B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .link-hover {
+                @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+            }
+            .gradient-bg {
+                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            }
+            .office-bg {
+                background-color: rgba(74, 137, 220, 0.05);
+            }
+            .web-bg {
+                background-color: rgba(55, 188, 155, 0.05);
+            }
+            .other-bg {
+                background-color: rgba(246, 187, 66, 0.05);
+            }
+            .bank-bg {
+                background-color: rgba(150, 122, 220, 0.05);
+            }
+            .tool-bg {
+                background-color: rgba(218, 68, 83, 0.05);
+            }
+            .life-bg {
+                background-color: rgba(255, 144, 43, 0.05);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- 页面标题 -->
+        <header class="mb-10 text-center">
+           <h1 class="text-[clamp(2rem,5vw,3rem)] font-bold text-primary mb-2 tracking-tight">办公常用链接导航</h1>
+        </header>
+
+        <!-- 主要内容区 -->
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 办公类 -->
+            <section class="bg-white rounded-xl p-6 card-shadow office-bg border-l-4 border-office-blue">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-office-blue/10 flex items-center justify-center mr-3">
+                        <i class="fa fa-briefcase text-office-blue text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">办公类</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.deepseek.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-envelope-o text-office-blue mr-2"></i>
+                        <span>deepseek</span>
+                    </a>
+                    <a href="https://www.doubao.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-calendar text-office-blue mr-2"></i>
+                        <span>豆包</span>
+                    </a>
+                    <a href="https://yiyan.baidu.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-file-text-o text-office-blue mr-2"></i>
+                        <span>文心一言</span>
+                    </a>
+					<a href="https://chatglm.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-calendar text-office-blue mr-2"></i>
+					    <span>智谱清言</span>
+					</a>
+                    <a href="https://www.51pptmoban.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-users text-office-blue mr-2"></i>
+                        <span>PPT模板</span>
+                    </a>
+                    <a href="https://www.kimi.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-tasks text-office-blue mr-2"></i>
+                        <span>Kimi</span>
+                    </a>
+                    <a href="https://chat.baidu.com/search?extParams=%7B%22enter_type%22%3A%22ai_explore_home%22%7D&isShowHello=1" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-cloud-upload text-office-blue mr-2"></i>
+                        <span>百度AI</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 办公网 -->
+            <section class="bg-white rounded-xl p-6 card-shadow web-bg border-l-4 border-web-green">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-web-green/10 flex items-center justify-center mr-3">
+                        <i class="fa fa-globe text-web-green text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">办公网</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="http://www.shtl.chnenergy.com.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-university text-web-green mr-2"></i>
+                        <span>公司内网</span>
+                    </a>
+                    <a href="http://www.chnenergy.com.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-shield text-web-green mr-2"></i>
+                        <span>国家能源集团</span>
+                    </a>
+                    <a href="https://docs.qq.com/sheet/DTmhicHFlUFJWU0RS?tab=js3ngz" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-wrench text-web-green mr-2"></i>
+                        <span>中心交班会信息表</span>
+                    </a>
+                    <a href="https://10.48.34.75:8888/lmd/app/login.html" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-question-circle text-web-green mr-2"></i>
+                        <span>LMD平台</span>
+                    </a>
+                    <a href="https://10.48.34.75:8888/glpt/login/login.html" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-line-chart text-web-green mr-2"></i>
+                        <span>车载设备管理平台</span>
+                    </a>
+                    <a href="https://docs.qq.com/sheet/DSWFHYWZDTmV1Sm13?tab=000002" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-shopping-cart text-web-green mr-2"></i>
+                        <span>班组故障处理登记表</span>
+                    </a>
+					<a href="https://docs.qq.com/sheet/DTHNxaGVETkZKTmNV?tab=000001" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-shopping-cart text-web-green mr-2"></i>
+					    <span>LKJ程序版本登记表</span>
+					</a>
+                </div>
+            </section>
+
+            <!-- 其他常用类 -->
+            <section class="bg-white rounded-xl p-6 card-shadow other-bg border-l-4 border-other-yellow">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-other-yellow/10 flex items-center justify-center mr-3">
+                        <i class="fa fa-star text-other-yellow text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">其他常用类</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.baidu.com" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-search text-other-yellow mr-2"></i>
+                        <span>百度</span>
+                    </a>
+                    <a href="https://www.toutiao.com" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-newspaper-o text-other-yellow mr-2"></i>
+                        <span>今日头条</span>
+                    </a>
+                    <a href="https://www.thepaper.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-newspaper-o text-other-yellow mr-2"></i>
+                        <span>澎湃新闻</span>
+                    </a>
+                    <a href="https://www.weather.com.cn" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-cloud text-other-yellow mr-2"></i>
+                        <span>天气查询</span>
+                    </a>
+                    <a href="https://www.12306.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-calendar-check-o text-other-yellow mr-2"></i>
+                        <span>火车票</span>
+                    </a>
+                    <a href="https://gab.122.gov.cn/m/index/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-map-marker text-other-yellow mr-2"></i>
+                        <span>公安交管</span>
+                    </a>
+                    <a href="https://www.autohome.com.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-translate text-other-yellow mr-2"></i>
+                        <span>汽车之家</span>
+                    </a>
+                    <a href="https://www.dongchedi.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-translate text-other-yellow mr-2"></i>
+                        <span>懂车帝</span>
+                    </a>
+                    <a href="https://www.dygangs.me/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-translate text-other-yellow mr-2"></i>
+                        <span>电影港</span>
+                    </a>
+					<a href="https://www.bilibili.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-newspaper-o text-other-yellow mr-2"></i>
+					    <span>bilibili</span>
+					</a>
+					<a href="https://www.douyin.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-calendar-check-o text-other-yellow mr-2"></i>
+					    <span>抖音</span>
+					</a>
+					
+					<a href="https://earth.jl1.cn/tools/globe" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-calendar-check-o text-other-yellow mr-2"></i>
+					    <span>共生地球</span>
+					</a>
+                </div>
+            </section>
+
+            <!-- 生活类 -->
+            <section class="bg-white rounded-xl p-6 card-shadow life-bg border-l-4 border-life-orange">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-life-orange/10 flex items-center justify-center mr-3">
+                        <i class="fa fa-bank text-life-orange text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">生活类</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.boc.cn" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-university text-life-orange mr-2"></i>
+                        <span>中国银行</span>
+                    </a>
+                    <a href="https://www.ccb.com" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-university text-life-orange mr-2"></i>
+                        <span>建设银行</span>
+                    </a>
+                    <a href="https://www.taobao.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-university text-life-orange mr-2"></i>
+                        <span>淘宝网</span>
+                    </a>
+                    <a href="https://i.mi.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-university text-life-orange mr-2"></i>
+                        <span>小米云服务</span>
+                    </a>
+                    <a href="https://www.xuexi.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-university text-life-orange mr-2"></i>
+                        <span>学习强国</span>
+                    </a>
+                    <a href="https://www.taobao.com" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-university text-life-orange mr-2"></i>
+                        <span>淘宝网</span>
+					<a href="https://www.JD.com" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+						    <i class="fa fa-university text-life-orange mr-2"></i>
+						    <span>京东</span>
+					</a>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 工具类 -->
+            <section class="bg-white rounded-xl p-6 card-shadow tool-bg border-l-4 border-tool-red">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-tool-red/10 flex items-center justify-center mr-3">
+                        <i class="fa fa-cogs text-tool-red text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">工具类</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.chsi.com.cn" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-graduation-cap text-tool-red mr-2"></i>
+                        <span>学信网</span>
+                    </a>
+                    <a href="https://www.yidiankaoshi.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-paint-brush text-tool-red mr-2"></i>
+                        <span>一点考试系统</span>
+                    </a>
+                    <a href="https://gaokao.chsi.com.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-picture-o text-tool-red mr-2"></i>
+                        <span>阳光高考网</span>
+                    </a>
+                    <a href="https://www.hebpta.com.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-file-pdf-o text-tool-red mr-2"></i>
+                        <span>河北人事考试网</span>
+                    </a>
+                    <a href="https://www.woaishuati.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-code text-tool-red mr-2"></i>
+                        <span>我爱刷题</span>
+                    </a>
+                    <a href="https://www.52pojie.cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-image text-tool-red mr-2"></i>
+                        <span>吾爱破解</span>
+                    </a>
+					<a href="https://www.pexels.com/zh-cn/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-image text-tool-red mr-2"></i>
+					    <span>免费图片素材</span>
+					</a>
+					<a href="https://pixabay.com/zh/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-image text-tool-red mr-2"></i>
+					    <span>免费正版高清图片视频</span>
+					</a>
+					<a href="https://www.aliyun.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-image text-tool-red mr-2"></i>
+					    <span>阿里云</span>
+					</a>
+					<a href="https://pixabay.com/zh/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-image text-tool-red mr-2"></i>
+					    <span>免费正版高清图片视频</span>
+					</a><a href="https://pixabay.com/zh/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+					    <i class="fa fa-image text-tool-red mr-2"></i>
+					    <span>免费正版高清图片视频</span>
+					</a>
+					
+                </div>
+            </section>
+
+            <!-- 预留区域 -->
+            <section class="bg-white rounded-xl p-6 card-shadow border-l-4 border-primary">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                        <i class="fa fa-plus text-primary text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">其他常用网站</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://www.fala-iot.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-graduation-cap text-primary mr-2"></i>
+                        <span>彭云物联</span>
+                    </a>
+                    <a href="https://www.txt81.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-shopping-cart text-primary mr-2"></i>
+                        <span>落吧书屋</span>
+                    </a>
+                    <a href="http://www.0430.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-shopping-cart text-primary mr-2"></i>
+                        <span>0430网站库</span>
+                    </a>
+                    <a href="https://www.ryjiaoyu.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-shopping-cart text-primary mr-2"></i>
+                        <span>人邮教育</span>
+                    </a>
+                    <a href="https://soft.3dmgame.com/" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-shopping-cart text-primary mr-2"></i>
+                        <span>3DGAME软件下载</span>
+                    </a>
+                    <a href="#" target="_blank" class="bg-white rounded-lg p-3 flex items-center link-hover shadow-sm">
+                        <i class="fa fa-shopping-cart text-primary mr-2"></i>
+                        <span>待添加</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="mt-12 text-center text-neutral-dark text-sm">
+            <p>© 2025 办公链接导航 | 为高效工作设计</p>
+            <p class="mt-2">可以根据需要添加更多分类和链接</p>
+        </footer>
+    </div>
+
+    <script>
+        // 为所有链接添加点击动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // 如果是预留链接，阻止跳转
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                        alert('此链接尚未配置，请联系管理员添加');
+                    }
+                });
+            });
+
+            // 添加卡片悬停效果
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.classList.add('shadow-lg');
+                    this.classList.add('scale-[1.01]');
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                section.addEventListener('mouseleave', function() {
+                    this.classList.remove('shadow-lg');
+                    this.classList.remove('scale-[1.01]');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    
