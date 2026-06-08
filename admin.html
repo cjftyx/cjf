@@ -9,10 +9,15 @@
         .success { color: green; }
         .error { color: red; }
         pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+        .toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        #resetTokenBtn { width: auto; background: #f0f0f0; border: 1px solid #ccc; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h1>网站链接管理后台</h1>
+    <div class="toolbar">
+        <h1>网站链接管理后台</h1>
+        <button id="resetTokenBtn">🔄 更换 Token</button>
+    </div>
     <div id="status"></div>
 
     <h2>添加链接</h2>
@@ -32,8 +37,8 @@
 
     <script>
         // === 请修改以下两个变量为你的实际信息 ===
-        const REPO_OWNER = 'cjftyx';        // 你的GitHub用户名
-        const REPO_NAME = 'cjf';                 // 你的仓库名
+        const REPO_OWNER = '你的GitHub用户名';        // 你的GitHub用户名
+        const REPO_NAME = 'my-links';                 // 你的仓库名
         // =======================================
 
         // 辅助函数：将字符串进行 UTF-8 编码后转为 Base64（支持中文）
@@ -43,14 +48,13 @@
             }));
         }
 
-        // 辅助函数：将 Base64 解码为 UTF-8 字符串（支持中文）
         function b64DecodeUnicode(str) {
             return decodeURIComponent(atob(str).split('').map(function(c) {
                 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
             }).join(''));
         }
 
-        // 获取 GitHub Token（每次运行时输入，不保存在代码中）
+        // 获取或提示 Token
         let GITHUB_TOKEN = localStorage.getItem('github_token');
         if (!GITHUB_TOKEN) {
             GITHUB_TOKEN = prompt('请输入你的 GitHub Personal Access Token：');
@@ -64,15 +68,28 @@
         const API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
         const MANAGE_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/manage.json`;
 
+        // 通用 API 调用封装（自动处理 401）
+        async function fetchWithToken(url, options = {}) {
+            const resp = await fetch(url, {
+                ...options,
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    ...options.headers
+                }
+            });
+            if (resp.status === 401) {
+                throw new Error('401 Unauthorized：Token 无效或已过期，请点击“更换 Token”按钮重新输入。');
+            }
+            return resp;
+        }
+
         async function updateData(newCommands) {
             const statusDiv = document.getElementById('status');
             statusDiv.innerHTML = '正在更新...';
             try {
-                // 1. 获取 manage.json 的当前内容和 SHA
-                const manageResp = await fetch(MANAGE_URL, {
-                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
-                });
-                if (!manageResp.ok) throw new Error('获取 manage.json 失败');
+                // 获取 manage.json
+                const manageResp = await fetchWithToken(MANAGE_URL);
+                if (!manageResp.ok) throw new Error('获取 manage.json 失败，HTTP ' + manageResp.status);
                 const manageData = await manageResp.json();
                 let manage;
                 try {
@@ -83,29 +100,27 @@
                 }
                 if (!manage.commands) manage.commands = [];
 
-                // 2. 添加新指令
                 manage.commands.push(...newCommands);
                 const newManageContent = b64EncodeUnicode(JSON.stringify(manage, null, 2));
 
-                // 3. 更新 manage.json
-                const updateResp = await fetch(MANAGE_URL, {
+                const updateResp = await fetchWithToken(MANAGE_URL, {
                     method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         message: '通过管理后台更新数据',
                         content: newManageContent,
                         sha: manageData.sha
                     })
                 });
-                if (!updateResp.ok) throw new Error('更新 manage.json 失败');
+                if (!updateResp.ok) throw new Error('更新 manage.json 失败，HTTP ' + updateResp.status);
                 
                 statusDiv.innerHTML = '<span class="success">✓ 指令已提交，网站将在30秒内自动更新</span>';
                 setTimeout(() => viewData(), 2000);
             } catch (err) {
                 statusDiv.innerHTML = `<span class="error">错误: ${err.message}</span>`;
+                if (err.message.includes('Token')) {
+                    statusDiv.innerHTML += '<br>👉 请点击上方“更换 Token”按钮重新输入。';
+                }
             }
         }
 
@@ -137,19 +152,33 @@
 
         async function viewData() {
             try {
-                const resp = await fetch(API_URL, {
-                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
-                });
-                if (!resp.ok) throw new Error('获取 data.json 失败');
+                const resp = await fetchWithToken(API_URL);
+                if (!resp.ok) throw new Error('获取 data.json 失败，HTTP ' + resp.status);
                 const fileData = await resp.json();
                 const decoded = b64DecodeUnicode(fileData.content);
                 const content = JSON.parse(decoded);
                 document.getElementById('dataView').textContent = JSON.stringify(content, null, 2);
             } catch (err) {
                 document.getElementById('dataView').textContent = '加载失败: ' + err.message;
+                if (err.message.includes('Token')) {
+                    document.getElementById('dataView').textContent += '\n\n请点击上方“更换 Token”按钮重新输入。';
+                }
             }
         }
-        viewData();
+
+        // 重置 Token 函数
+        function resetToken() {
+            localStorage.removeItem('github_token');
+            alert('Token 已清除，页面将重新加载以输入新 Token。');
+            location.reload();
+        }
+
+        // 绑定重置按钮
+        document.addEventListener('DOMContentLoaded', function() {
+            const resetBtn = document.getElementById('resetTokenBtn');
+            if (resetBtn) resetBtn.addEventListener('click', resetToken);
+            viewData(); // 自动加载数据
+        });
     </script>
 </body>
 </html>
