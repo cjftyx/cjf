@@ -1,3 +1,10 @@
 {
-  "commands": []
+  "commands": [
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "github",
+      "url": "github.com"
+    }
+  ]
 }
