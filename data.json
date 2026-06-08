@@ -1,22 +1,9 @@
-// .github/workflows/update-script.js
-const fs = require('fs');
-
-// 1. 读取指令文件和当前数据库
-const manage = JSON.parse(fs.readFileSync('manage.json', 'utf8'));
-let data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
-
-// 2. 遍历执行所有指令（以"add"和"delete"为例）
-manage.commands.forEach(cmd => {
-  if (cmd.action === 'add') {
-    if (!data[cmd.category]) data[cmd.category] = [];
-    data[cmd.category].push({ name: cmd.name, url: cmd.url });
-  } else if (cmd.action === 'delete') {
-    if (data[cmd.category]) {
-      data[cmd.category] = data[cmd.category].filter(link => link.name !== cmd.name);
-    }
-  }
-  // 你可以在这里轻松扩展 'edit'（编辑）等其他指令的逻辑
-});
-
-// 3. 将更新后的数据库写回文件
-fs.writeFileSync('data.json', JSON.stringify(data, null, 2));
+{
+  "工具类": [
+    { "name": "GitHub", "url": "https://github.com" },
+    { "name": "腾讯云", "url": "https://cloud.tencent.com" }
+  ],
+  "编程类": [
+    { "name": "MDN Web Docs", "url": "https://developer.mozilla.org" }
+  ]
+}
