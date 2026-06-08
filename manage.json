@@ -17,6 +17,12 @@
       "category": "工具类",
       "name": "百度",
       "url": "www.baidu.com"
+    },
+    {
+      "action": "add",
+      "category": "常用类",
+      "name": "今日头条",
+      "url": "https://www.toutiao.com/"
     }
   ]
 }
