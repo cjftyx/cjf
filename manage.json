@@ -46,6 +46,11 @@
       "action": "delete",
       "category": "常用类",
       "name": "今日头条"
+    },
+    {
+      "action": "delete",
+      "category": "工具类",
+      "name": "待用"
     }
   ]
 }
