@@ -56,6 +56,12 @@
       "action": "delete",
       "category": "工具类",
       "name": "百度"
+    },
+    {
+      "action": "add",
+      "category": "其他常用网站",
+      "name": "片多多",
+      "url": "http://www.bjyojm.com/"
     }
   ]
 }
