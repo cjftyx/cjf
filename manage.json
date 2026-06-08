@@ -29,6 +29,12 @@
       "category": "办公类",
       "name": "阳光高考",
       "url": "https://gaokao.chsi.com.cn/"
+    },
+    {
+      "action": "add",
+      "category": "办公类",
+      "name": "河北人事考试网",
+      "url": "https://www.hebpta.com.cn/"
     }
   ]
 }
