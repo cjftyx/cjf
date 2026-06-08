@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>网站管理后台</title>
+    <style>
+        body { font-family: Arial; max-width: 800px; margin: 50px auto; padding: 20px; }
+        input, select, button { margin: 10px 0; padding: 8px; width: 100%; }
+        .success { color: green; }
+        .error { color: red; }
+        pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>网站链接管理后台</h1>
+    <div id="status"></div>
+
+    <h2>添加链接</h2>
+    <input type="text" id="addCategory" placeholder="分类名称 (如: 工具类)">
+    <input type="text" id="addName" placeholder="网站名称">
+    <input type="text" id="addUrl" placeholder="网址">
+    <button onclick="addLink()">添加链接</button>
+
+    <h2>删除链接</h2>
+    <input type="text" id="delCategory" placeholder="分类名称">
+    <input type="text" id="delName" placeholder="网站名称">
+    <button onclick="deleteLink()">删除链接</button>
+
+    <h2>查看当前数据</h2>
+    <button onclick="viewData()">刷新数据</button>
+    <pre id="dataView"></pre>
+
+    <script>
+        // === 请修改以下三个变量为你的实际信息 ===
+        const REPO_OWNER = 'cjftyx';        // 你的GitHub用户名
+        const REPO_NAME = 'cjf	';                 // 你的仓库名
+        // 在页面加载时或者每次操作前，让用户输入 token
+        const GITHUB_TOKEN = prompt('请输入你的 GitHub Personal Access Token：');
+        if (!GITHUB_TOKEN) {
+            alert('必须输入 Token 才能使用管理功能');
+        }
+        // =======================================
+
+        const API_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/data.json`;
+
+        async function updateData(newCommands) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = '正在更新...';
+            try {
+                // 1. 获取当前data.json的内容
+                const getResp = await fetch(API_URL, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                const fileData = await getResp.json();
+                const currentContent = atob(fileData.content);
+                const sha = fileData.sha;
+
+                // 2. 读取manage.json获取现有指令列表
+                const manageResp = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/manage.json`, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                const manageData = await manageResp.json();
+                let manage = JSON.parse(atob(manageData.content));
+                if (!manage.commands) manage.commands = [];
+
+                // 3. 添加新指令
+                manage.commands.push(...newCommands);
+                const newManageContent = btoa(JSON.stringify(manage, null, 2));
+
+                // 4. 更新manage.json
+                await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/manage.json`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: '通过管理后台更新数据',
+                        content: newManageContent,
+                        sha: manageData.sha
+                    })
+                });
+                statusDiv.innerHTML = '<span class="success">✓ 指令已提交，网站将在30秒内自动更新</span>';
+                setTimeout(() => viewData(), 2000);
+            } catch (err) {
+                statusDiv.innerHTML = `<span class="error">错误: ${err.message}</span>`;
+            }
+        }
+
+        function addLink() {
+            const category = document.getElementById('addCategory').value.trim();
+            const name = document.getElementById('addName').value.trim();
+            const url = document.getElementById('addUrl').value.trim();
+            if (!category || !name || !url) {
+                alert('请填写完整信息');
+                return;
+            }
+            updateData([{ action: 'add', category, name, url }]);
+            document.getElementById('addCategory').value = '';
+            document.getElementById('addName').value = '';
+            document.getElementById('addUrl').value = '';
+        }
+
+        function deleteLink() {
+            const category = document.getElementById('delCategory').value.trim();
+            const name = document.getElementById('delName').value.trim();
+            if (!category || !name) {
+                alert('请填写分类和网站名称');
+                return;
+            }
+            updateData([{ action: 'delete', category, name }]);
+            document.getElementById('delCategory').value = '';
+            document.getElementById('delName').value = '';
+        }
+
+        async function viewData() {
+            try {
+                const resp = await fetch(API_URL, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                const fileData = await resp.json();
+                const content = JSON.parse(atob(fileData.content));
+                document.getElementById('dataView').textContent = JSON.stringify(content, null, 2);
+            } catch (err) {
+                document.getElementById('dataView').textContent = '加载失败: ' + err.message;
+            }
+        }
+        viewData();
+    </script>
+</body>
+</html>
