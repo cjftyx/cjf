@@ -22,5 +22,11 @@
       "name": "MDN Web Docs",
       "url": "https://developer.mozilla.org"
     }
+  ],
+  "常用类": [
+    {
+      "name": "今日头条",
+      "url": "https://www.toutiao.com/"
+    }
   ]
 }
