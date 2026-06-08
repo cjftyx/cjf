@@ -1,9 +1,26 @@
 {
   "工具类": [
-    { "name": "GitHub", "url": "https://github.com" },
-    { "name": "腾讯云", "url": "https://cloud.tencent.com" }
+    {
+      "name": "GitHub",
+      "url": "https://github.com"
+    },
+    {
+      "name": "腾讯云",
+      "url": "https://cloud.tencent.com"
+    },
+    {
+      "name": "github",
+      "url": "github.com"
+    },
+    {
+      "name": "百度",
+      "url": "www.baidu.com"
+    }
   ],
   "编程类": [
-    { "name": "MDN Web Docs", "url": "https://developer.mozilla.org" }
+    {
+      "name": "MDN Web Docs",
+      "url": "https://developer.mozilla.org"
+    }
   ]
 }
