@@ -3,236 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>办公常用链接导航</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#165DFF',
-                        secondary: '#4080FF',
-                        neutral: '#F2F3F5',
-                        'neutral-dark': '#4E5969',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
+    <title>灵境导航 · 纯净卡片夹</title>
+    <!-- Google Fonts Inter + 系统字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 仅用于小箭头保留但不使用图标装饰 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* 自定义每个分类的背景色 */
-        .bg-category-1 { background: linear-gradient(135deg, #E8F4FD 0%, #D6ECFA 100%); }
-        .bg-category-2 { background: linear-gradient(135deg, #E8F8F0 0%, #D4F0E5 100%); }
-        .bg-category-3 { background: linear-gradient(135deg, #FFF3E0 0%, #FFE8CC 100%); }
-        .bg-category-4 { background: linear-gradient(135deg, #F3E8FF 0%, #E9D9FF 100%); }
-        .bg-category-5 { background: linear-gradient(135deg, #FFE8EE 0%, #FFDCE4 100%); }
-        .bg-category-6 { background: linear-gradient(135deg, #E0F2FE 0%, #CCE9FF 100%); }
-        .bg-category-7 { background: linear-gradient(135deg, #FCE7F3 0%, #F9D9EB 100%); }
-        .bg-category-8 { background: linear-gradient(135deg, #E0F7FA 0%, #CCF0F5 100%); }
-        
-        /* 响应式网格布局：桌面三列，平板两列，手机单列 */
-        .responsive-grid {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f7fc;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
+        }
+
+        /* 柔和背景光晕 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 130%;
+            height: 130%;
+            background: radial-gradient(circle at 25% 30%, rgba(100, 150, 220, 0.12), transparent 70%);
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .dashboard {
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        /* ----- 头部区域：只有大标题“灵境导航” ----- */
+        .hero {
+            text-align: center;
+            margin-bottom: 2.8rem;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1F2E4A, #2C6288, #165DFF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+        .hero h1 i {
+            background: none;
+            -webkit-background-clip: unset;
+            color: #2C6288;
+            font-size: 2.8rem;
+        }
+
+        /* 统计栏完全隐藏 */
+        .stats-bar {
+            display: none;
+        }
+
+        /* ===== 核心分类网格：每行三个卡片 ===== */
+        .category-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
+            gap: 1.8rem;
         }
-        
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .responsive-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .responsive-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* 链接卡片样式 */
-        .link-item {
-            display: flex;
-            align-items: center;
-            padding: 0.7rem 0.9rem;
-            border-radius: 0.75rem;
-            transition: all 0.2s ease;
-            border: 1px solid rgba(255,255,255,0.6);
-            background-color: rgba(255, 255, 255, 0.85);
-        }
-        .link-item:hover {
-            background-color: rgba(255, 255, 255, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .link-icon {
-            width: 1.8rem;
-            height: 1.8rem;
-            border-radius: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 0.7rem;
-            font-size: 0.95rem;
-            flex-shrink: 0;
-        }
-        .link-name {
-            flex: 1;
-            font-weight: 500;
-            font-size: 0.85rem;
-            color: #1f2f3e;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        a { text-decoration: none; }
-        
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.4rem;
-            border-bottom: 3px solid currentColor;
-            display: inline-block;
-        }
+
+        /* 分类卡片 — 圆润玻璃质感 */
         .category-card {
-            padding: 1rem 1rem 1.2rem 1rem;
-        }
-        .links-space {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            padding: 1.6rem 1.4rem 2rem 1.4rem;
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+            height: 100%;
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
         }
-        .loading, .error-msg {
-            text-align: center;
-            padding: 2rem;
-            color: #6b7280;
-            grid-column: 1 / -1;
+        .category-card:hover {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 22px 32px -14px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+            border-color: #ffffff;
         }
-        .error-msg { color: #ef4444; }
-    </style>
-</head>
-<body class="bg-gray-50 min-h-screen font-sans">
-    <div class="container mx-auto px-4 py-6 max-w-7xl">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-primary mb-2 tracking-tight">📚 办公常用链接导航</h1>
-            <p class="text-gray-500 text-sm">快速访问常用网站 · 分类收纳</p>
-        </header>
 
-        <div class="responsive-grid" id="linksContainer">
-            <div class="loading">加载中...</div>
-        </div>
+        /* 分类头部 */
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.4rem;
+            border-bottom: 2px solid rgba(60, 100, 140, 0.15);
+            padding-bottom: 0.7rem;
+            flex-wrap: wrap;
+        }
+        .title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .category-icon {
+            font-size: 1.9rem;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
+        }
+        .category-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            background: linear-gradient(125deg, #1e405b, #19647e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .link-count {
+            background: rgba(40, 80, 120, 0.1);
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #2a6d8f;
+        }
 
-        <footer class="mt-10 text-center text-neutral-dark text-xs">
-            <p>© 2025 办公链接导航 | 点击卡片直达网站</p>
-        </footer>
-    </div>
+        /* 链接列表 — 两列网格布局，干净无多余装饰 */
+        .links-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.9rem;
+            flex: 1;
+        }
 
-    <script>
-        const bgClasses = ['bg-category-1', 'bg-category-2', 'bg-category-3', 'bg-category-4', 'bg-category-5', 'bg-category-6', 'bg-category-7', 'bg-category-8'];
-        const categoryIcons = { "办公类": "💼", "办公网": "🌐", "其他常用类": "⭐", "生活类": "🏠", "工具类": "🔧", "其他常用网站": "📁" };
-        
-        function getLinkIcon(name) {
-            const lower = name.toLowerCase();
-            if (lower.includes('百度')) return '🔍';
-            if (lower.includes('deepseek') || lower.includes('kimi') || lower.includes('文心') || lower.includes('智谱')) return '🤖';
-            if (lower.includes('银行')) return '🏦';
-            if (lower.includes('淘宝') || lower.includes('京东')) return '🛒';
-            if (lower.includes('bilibili')) return '📺';
-            if (lower.includes('抖音')) return '🎵';
-            if (lower.includes('天气')) return '☁️';
-            if (lower.includes('火车票')) return '🚆';
-            if (lower.includes('汽车') || lower.includes('懂车帝')) return '🚗';
-            if (lower.includes('学习强国')) return '📖';
-            if (lower.includes('云') || lower.includes('腾讯') || lower.includes('阿里')) return '☁️';
-            if (lower.includes('ppt')) return '📊';
-            if (lower.includes('图片') || lower.includes('素材')) return '🖼️';
-            if (lower.includes('学信') || lower.includes('考试') || lower.includes('刷题')) return '📝';
-            return '🔗';
+        /* 单个链接卡片 — 完全无图标装饰、无下划线，名称字体加大2个号 (原0.9rem → 1.1rem) */
+        .link-card {
+            background: #ffffff;
+            border-radius: 1.2rem;
+            padding: 0.8rem 1rem;
+            transition: all 0.25s ease;
+            border: 1px solid #eef2f8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+            text-decoration: none !important;      /* 彻底去除下划线 */
         }
-        
-        function getBorderColor(index) {
-            const colors = ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EF4444', '#06B6D4', '#EC4899', '#14B8A6'];
-            return colors[index % colors.length];
+        .link-card:hover {
+            background: #ffffff;
+            border-color: #cbdde9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 14px -10px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
         }
-        
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, function(m) {
-                if (m === '&') return '&amp;';
-                if (m === '<') return '&lt;';
-                if (m === '>') return '&gt;';
-                return m;
-            });
+        /* 完全移除图标区域 — 不再显示圆圈装饰或任何图标 */
+        .link-icon-bg {
+            display: none;
         }
-        
-        async function renderPage() {
-            const container = document.getElementById('linksContainer');
-            container.innerHTML = '<div class="loading">加载中...</div>';
-            
-            try {
-                const response = await fetch('data.json?t=' + Date.now());
-                if (!response.ok) throw new Error('data.json 加载失败');
-                const categoriesData = await response.json();
-                
-                container.innerHTML = '';
-                const categories = Object.keys(categoriesData);
-                
-                if (categories.length === 0) {
-                    container.innerHTML = '<div class="loading">暂无数据，请添加网站链接</div>';
-                    return;
-                }
-                
-                categories.forEach((cat, index) => {
-                    const links = categoriesData[cat];
-                    if (!links || links.length === 0) return;
-                    
-                    const bgClass = bgClasses[index % bgClasses.length];
-                    const icon = categoryIcons[cat] || '📂';
-                    const borderColor = getBorderColor(index);
-                    
-                    const sectionDiv = document.createElement('div');
-                    sectionDiv.className = `${bgClass} rounded-xl category-card card-shadow transition-all duration-200 hover:shadow-lg`;
-                    sectionDiv.innerHTML = `
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="flex items-center">
-                                <span class="text-2xl mr-2">${icon}</span>
-                                <h2 class="section-title" style="border-bottom-color: ${borderColor}; color: #1f2f3e;">${escapeHtml(cat)}</h2>
-                            </div>
-                            <span class="text-xs text-gray-500 bg-white/60 px-2 py-0.5 rounded-full">${links.length}</span>
-                        </div>
-                        <div class="links-space" id="links-${index}"></div>
-                    `;
-                    container.appendChild(sectionDiv);
-                    
-                    const linksContainerDiv = sectionDiv.querySelector(`#links-${index}`);
-                    links.forEach(link => {
-                        const linkItem = document.createElement('a');
-                        linkItem.href = link.url;
-                        linkItem.target = '_blank';
-                        linkItem.rel = 'noopener noreferrer';
-                        linkItem.className = 'link-item';
-                        linkItem.innerHTML = `
-                            <div class="link-icon" style="background-color: ${borderColor}20">
-                                <span style="font-size: 0.9rem;">${getLinkIcon(link.name)}</span>
-                            </div>
-                            <span class="link-name">${escapeHtml(link.name)}</span>
-                            <svg class="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                            </svg>
-                        `;
-                        linksContainerDiv.appendChild(linkItem);
-                    });
-                });
-            } catch (err) {
-                console.error('加载出错:', err);
-                container.innerHTML = '<div class="error-msg">❌ 加载失败，请确保 data.json 文件存在且格式正确</div>';
+        /* 网站名称：字体加大两个号，原参考页面普通卡片内文字较小，现在调大至 1.1rem，加粗保持清晰 */
+        .link-name {
+            flex: 1;
+            font-weight: 400;
+            font-size: 1.0rem;
+            color: #1f2f3f;
+            line-height: 1.35;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            letter-spacing: -0.1px;
+            text-decoration: none;
+        }
+        /* 彻底隐藏 URL 地址 */
+        .link-url {
+            display: none;
+        }
+        /* 右侧小箭头保留但不再是装饰圆圈，仅作视觉提示 */
+        .link-arrow {
+            color: #b6cbdf;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            opacity: 0.5;
+            transition: 0.2s;
+            margin-left: 8px;
+        }
+        .link-card:hover .link-arrow {
+            opacity: 1;
+            transform: translateX(3px);
+            color: #165DFF;
+        }
+
+        /* 响应式适配: 平板2列，手机1列，链接区域随网格自适应 */
+        @media (max-width: 1000px) {
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
             }
         }
-        
-        document.addEventListener('DOMContentLoaded', renderPage);
-    </script>
+        @media (max-width: 680px) {
+            body { padding: 1rem; }
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 2.2rem; }
+            .category-title { font-size: 1.25rem; }
+            .links-list {
+                grid-template-columns: 1fr;
+                gap: 0.7rem;
+            }
+            .link-name {
+                font-size: 1rem;     /* 手机端稍微适配但依然醒目 */
+            }
+        }
+
+        /* 加载/错误/空状态区 */
+        .loading-state, .error-state, .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            background: rgba(255,255,255,0.7);
+            border-radius: 2rem;
+            color: #567c9e;
+            font-weight: 500;
+        }
+        .error-state {
+            color: #bc3f33;
+            background: #fff5f3;
+        }
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #8ea5bf;
+            border-top: 1px solid #e2eaf1;
+            padding-top: 1.5rem;
+        }
+        a, a:hover, a:focus, a:active {
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+<body>
+<div class="dashboard">
+    <!-- 头部仅保留大标题 -->
+    <div class="hero">
+        <h1>
+            <i class="fas fa-folder-open"></i> 灵境导航
+        </h1>
+    </div>
+
+    <!-- 统计栏已隐藏 -->
+    <div class="stats-bar" style="display: none;"></div>
+
+    <!-- 分类网格容器 (三列卡片) -->
+    <div id="categoryContainer" class="category-grid">
+        <div class="loading-state"><i class="fas fa-cubes"></i> 正在整理你的数字花园...</div>
+    </div>
+
+    <div class="footer">
+        <span><i class="far fa-bookmark"></i> 点击直达 · 高效办公</span>
+        <span><i class="fas fa-database"></i> data.json 动态驱动</span>
+    </div>
+</div>
+
+<script>
+    // ================================================
+    // 基于 data.json 渲染分类与链接
+    // - 每个分类卡片内的链接采用两列网格
+    // - 彻底去除链接前的图标/圆圈装饰
+    // - 网站名称字体加大两个号 (1.1rem)
+    // - 无任何下划线，无URL显示
+    // - 大标题只有“灵境导航”，无额外统计栏
+    // ================================================
+    const container = document.getElementById('categoryContainer');
+
+    // 安全转义HTML
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // 不再需要为每个链接生成图标，删除图标函数调用，但保留分类头部图标
+    // 分类头部图标 (优雅 emoji，不影响链接装饰)
+    function getCategoryIconEmoji(catName) {
+        const iconMap = {
+            "办公类": "💼", "办公网": "🌐", "工具类": "🔧", "常用类": "⭐", "其他常用类": "✨",
+            "生活类": "🏡", "银行类": "🏦", "编程类": "💻", "资源类": "📦", "设计素材": "🎨",
+            "AI工具": "🧠", "视频影音": "🎬", "学习考试": "📖", "其他常用网站": "🗂️"
+        };
+        if (iconMap[catName]) return iconMap[catName];
+        if (catName.includes('办公')) return "📂";
+        if (catName.includes('工具')) return "🛠️";
+        if (catName.includes('生活')) return "🏠";
+        if (catName.includes('银行')) return "🏦";
+        if (catName.includes('编程')) return "⌨️";
+        if (catName.includes('AI')) return "⚡";
+        return "📌";
+    }
+
+    // 分类卡片背景柔和渐变
+    function getCategoryBgStyle(idx) {
+        const gradients = [
+            "linear-gradient(105deg, #f6fafe 0%, #ecf5fd 100%)",
+            "linear-gradient(105deg, #f0faf5 0%, #e4f4ec 100%)",
+            "linear-gradient(105deg, #fff9ef 0%, #fef3e2 100%)",
+            "linear-gradient(105deg, #f7f2fe 0%, #f0e8fc 100%)",
+            "linear-gradient(105deg, #fef2f4 0%, #fee9ed 100%)",
+            "linear-gradient(105deg, #eef6ff 0%, #e3effc 100%)",
+            "linear-gradient(105deg, #fdf0f7 0%, #fce6f1 100%)"
+        ];
+        return gradients[idx % gradients.length];
+    }
+
+    // 主渲染函数：链接不含任何装饰性图标、圆圈
+    async function renderNavigation() {
+        try {
+            const response = await fetch(`data.json?t=${Date.now()}`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}: data.json 未找到或不可读`);
+            const data = await response.json();
+            
+            const categories = Object.keys(data).filter(cat => data[cat] && Array.isArray(data[cat]) && data[cat].length > 0);
+            if (categories.length === 0) {
+                container.innerHTML = `<div class="empty-state"><i class="fas fa-info-circle"></i> 暂无链接，请在 data.json 中添加网站</div>`;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            // 循环构建分类卡片
+            for (let i = 0; i < categories.length; i++) {
+                const cat = categories[i];
+                const links = data[cat];
+                if (!links || links.length === 0) continue;
+                
+                const bgGradient = getCategoryBgStyle(i);
+                const iconEmoji = getCategoryIconEmoji(cat);
+                
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'category-card';
+                cardDiv.style.background = bgGradient;
+                cardDiv.style.backdropFilter = 'blur(2px)';
+                
+                // 分类头部
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'category-header';
+                headerDiv.innerHTML = `
+                    <div class="title-wrap">
+                        <div class="category-icon">${iconEmoji}</div>
+                        <div class="category-title">${escapeHtml(cat)}</div>
+                    </div>
+                    <div class="link-count">${links.length}</div>
+                `;
+                cardDiv.appendChild(headerDiv);
+                
+                // 链接列表容器 (两列网格)
+                const linksListDiv = document.createElement('div');
+                linksListDiv.className = 'links-list';
+                
+                // 遍历每个链接，不添加任何图标或圆形装饰，仅展示名称+箭头
+                links.forEach(link => {
+                    const linkName = link.name || '未命名';
+                    const linkUrl = link.url || '#';
+                    
+                    const linkItem = document.createElement('a');
+                    linkItem.href = linkUrl;
+                    linkItem.target = '_blank';
+                    linkItem.rel = 'noopener noreferrer';
+                    linkItem.className = 'link-card';
+                    linkItem.style.textDecoration = 'none';
+                    // 彻底无图标，无装饰圆圈: 直接显示名称文本 + 轻微右箭头
+                    linkItem.innerHTML = `
+                        <span class="link-name">${escapeHtml(linkName)}</span>
+                        <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+                    `;
+                    linksListDiv.appendChild(linkItem);
+                });
+                
+                cardDiv.appendChild(linksListDiv);
+                container.appendChild(cardDiv);
+            }
+        } catch (err) {
+            console.error('加载出错:', err);
+            container.innerHTML = `<div class="error-state"><i class="fas fa-circle-exclamation"></i> 加载失败：${err.message}<br>请确保 data.json 格式正确且位于仓库根目录。</div>`;
+        }
+    }
+    
+    // 页面加载执行
+    document.addEventListener('DOMContentLoaded', renderNavigation);
+</script>
 </body>
 </html>
