@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>灵境导航 · 纯净卡片夹</title>
-    <!-- Google Fonts Inter + 系统字体 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-    <!-- FontAwesome 6 仅用于小箭头保留但不使用图标装饰 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -17,7 +13,8 @@
 
         body {
             background: #f4f7fc;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            /* 使用系统默认字体，无需外部加载，速度更快 */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             padding: 2rem 1.5rem;
             color: #1a2c3e;
         }
@@ -59,8 +56,10 @@
             margin-bottom: 0;
         }
         .hero h1 i {
+            /* 使用纯文本装饰，无需图标库 */
+            font-style: normal;
+            display: inline-block;
             background: none;
-            -webkit-background-clip: unset;
             color: #2C6288;
             font-size: 2.8rem;
         }
@@ -77,11 +76,10 @@
             gap: 1.8rem;
         }
 
-        /* 分类卡片 — 圆润玻璃质感 */
+        /* 分类卡片 — 圆润玻璃质感（移除backdrop-filter提升性能） */
         .category-card {
             background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(2px);
-            border-radius: 2rem;
+            border-radius: 1.5rem;
             padding: 1.6rem 1.4rem 2rem 1.4rem;
             transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
             border: 1px solid rgba(255, 255, 255, 0.7);
@@ -134,7 +132,7 @@
             color: #2a6d8f;
         }
 
-        /* 链接列表 — 两列网格布局，干净无多余装饰 */
+        /* 链接列表 — 两列网格布局 */
         .links-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -142,36 +140,32 @@
             flex: 1;
         }
 
-        /* 单个链接卡片 — 完全无图标装饰、无下划线，名称字体加大2个号 (原0.9rem → 1.1rem) */
+        /* 单个链接卡片 — 无图标装饰、无下划线 */
         .link-card {
             background: #ffffff;
-            border-radius: 1.2rem;
+            border-radius: 1rem;
             padding: 0.8rem 1rem;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             border: 1px solid #eef2f8;
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-            text-decoration: none !important;      /* 彻底去除下划线 */
+            text-decoration: none !important;
         }
         .link-card:hover {
             background: #ffffff;
             border-color: #cbdde9;
             transform: translateY(-2px);
-            box-shadow: 0 8px 14px -10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.08);
             text-decoration: none;
         }
-        /* 完全移除图标区域 — 不再显示圆圈装饰或任何图标 */
-        .link-icon-bg {
-            display: none;
-        }
-        /* 网站名称：字体加大两个号，原参考页面普通卡片内文字较小，现在调大至 1.1rem，加粗保持清晰 */
+        /* 网站名称：正常字重，字号适中 */
         .link-name {
             flex: 1;
             font-weight: 400;
-            font-size: 1.0rem;
+            font-size: 1rem;
             color: #1f2f3f;
             line-height: 1.35;
             word-break: break-word;
@@ -179,14 +173,10 @@
             letter-spacing: -0.1px;
             text-decoration: none;
         }
-        /* 彻底隐藏 URL 地址 */
-        .link-url {
-            display: none;
-        }
-        /* 右侧小箭头保留但不再是装饰圆圈，仅作视觉提示 */
+        /* 右侧箭头 — 纯文本，无图标库依赖 */
         .link-arrow {
             color: #b6cbdf;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             flex-shrink: 0;
             opacity: 0.5;
             transition: 0.2s;
@@ -198,7 +188,7 @@
             color: #165DFF;
         }
 
-        /* 响应式适配: 平板2列，手机1列，链接区域随网格自适应 */
+        /* 响应式适配 */
         @media (max-width: 1000px) {
             .category-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -217,7 +207,7 @@
                 gap: 0.7rem;
             }
             .link-name {
-                font-size: 1rem;     /* 手机端稍微适配但依然醒目 */
+                font-size: 0.95rem;
             }
         }
 
@@ -227,7 +217,7 @@
             text-align: center;
             padding: 3rem;
             background: rgba(255,255,255,0.7);
-            border-radius: 2rem;
+            border-radius: 1.5rem;
             color: #567c9e;
             font-weight: 500;
         }
@@ -250,38 +240,39 @@
 </head>
 <body>
 <div class="dashboard">
-    <!-- 头部仅保留大标题 -->
+    <!-- 头部仅保留大标题，使用纯文本装饰替代图标 -->
     <div class="hero">
         <h1>
-            <i class="fas fa-folder-open"></i> 灵境导航
+            <i>📁</i> 灵境导航
         </h1>
     </div>
 
     <!-- 统计栏已隐藏 -->
     <div class="stats-bar" style="display: none;"></div>
 
-    <!-- 分类网格容器 (三列卡片) -->
+    <!-- 分类网格容器 -->
     <div id="categoryContainer" class="category-grid">
-        <div class="loading-state"><i class="fas fa-cubes"></i> 正在整理你的数字花园...</div>
+        <div class="loading-state">⏳ 正在整理你的数字花园...</div>
     </div>
 
     <div class="footer">
-        <span><i class="far fa-bookmark"></i> 点击直达 · 高效办公</span>
-        <span><i class="fas fa-database"></i> data.json 动态驱动</span>
+        <span>📖 点击直达 · 高效办公</span>
+        <span>🗂️ data.json 动态驱动</span>
     </div>
 </div>
 
 <script>
     // ================================================
-    // 基于 data.json 渲染分类与链接
-    // - 每个分类卡片内的链接采用两列网格
-    // - 彻底去除链接前的图标/圆圈装饰
-    // - 网站名称字体加大两个号 (1.1rem)
-    // - 无任何下划线，无URL显示
-    // - 大标题只有“灵境导航”，无额外统计栏
+    // 基于 data.json 渲染分类与链接 - 优化性能版本
+    // - 使用版本号控制缓存，避免每次强制刷新
+    // - 无任何外部依赖，纯原生 JS
     // ================================================
     const container = document.getElementById('categoryContainer');
-
+    
+    // 数据版本号：每次修改 data.json 内容后，手动将数字 +1
+    // 这样浏览器会重新请求最新的 data.json，平时利用缓存加速加载
+    const DATA_VERSION = 2;
+    
     // 安全转义HTML
     function escapeHtml(str) {
         if (!str) return '';
@@ -293,8 +284,7 @@
         });
     }
 
-    // 不再需要为每个链接生成图标，删除图标函数调用，但保留分类头部图标
-    // 分类头部图标 (优雅 emoji，不影响链接装饰)
+    // 分类头部图标映射（仅用于分类卡片装饰）
     function getCategoryIconEmoji(catName) {
         const iconMap = {
             "办公类": "💼", "办公网": "🌐", "工具类": "🔧", "常用类": "⭐", "其他常用类": "✨",
@@ -325,22 +315,22 @@
         return gradients[idx % gradients.length];
     }
 
-    // 主渲染函数：链接不含任何装饰性图标、圆圈
+    // 主渲染函数
     async function renderNavigation() {
         try {
-            const response = await fetch(`data.json?t=${Date.now()}`);
-            if (!response.ok) throw new Error(`HTTP ${response.status}: data.json 未找到或不可读`);
+            // 使用版本号策略，允许浏览器缓存，同时能通过改版本号强制刷新
+            const response = await fetch(`data.json?v=${DATA_VERSION}`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}: data.json 未找到`);
             const data = await response.json();
             
             const categories = Object.keys(data).filter(cat => data[cat] && Array.isArray(data[cat]) && data[cat].length > 0);
             if (categories.length === 0) {
-                container.innerHTML = `<div class="empty-state"><i class="fas fa-info-circle"></i> 暂无链接，请在 data.json 中添加网站</div>`;
+                container.innerHTML = `<div class="empty-state">📭 暂无链接，请在 data.json 中添加网站</div>`;
                 return;
             }
             
             container.innerHTML = '';
             
-            // 循环构建分类卡片
             for (let i = 0; i < categories.length; i++) {
                 const cat = categories[i];
                 const links = data[cat];
@@ -352,9 +342,7 @@
                 const cardDiv = document.createElement('div');
                 cardDiv.className = 'category-card';
                 cardDiv.style.background = bgGradient;
-                cardDiv.style.backdropFilter = 'blur(2px)';
                 
-                // 分类头部
                 const headerDiv = document.createElement('div');
                 headerDiv.className = 'category-header';
                 headerDiv.innerHTML = `
@@ -366,11 +354,9 @@
                 `;
                 cardDiv.appendChild(headerDiv);
                 
-                // 链接列表容器 (两列网格)
                 const linksListDiv = document.createElement('div');
                 linksListDiv.className = 'links-list';
                 
-                // 遍历每个链接，不添加任何图标或圆形装饰，仅展示名称+箭头
                 links.forEach(link => {
                     const linkName = link.name || '未命名';
                     const linkUrl = link.url || '#';
@@ -381,10 +367,10 @@
                     linkItem.rel = 'noopener noreferrer';
                     linkItem.className = 'link-card';
                     linkItem.style.textDecoration = 'none';
-                    // 彻底无图标，无装饰圆圈: 直接显示名称文本 + 轻微右箭头
+                    // 只显示名称 + 纯文本箭头，无任何外部图标
                     linkItem.innerHTML = `
                         <span class="link-name">${escapeHtml(linkName)}</span>
-                        <span class="link-arrow"><i class="fas fa-chevron-right"></i></span>
+                        <span class="link-arrow">→</span>
                     `;
                     linksListDiv.appendChild(linkItem);
                 });
@@ -394,11 +380,10 @@
             }
         } catch (err) {
             console.error('加载出错:', err);
-            container.innerHTML = `<div class="error-state"><i class="fas fa-circle-exclamation"></i> 加载失败：${err.message}<br>请确保 data.json 格式正确且位于仓库根目录。</div>`;
+            container.innerHTML = `<div class="error-state">⚠️ 加载失败：${err.message}<br>请确保 data.json 格式正确。</div>`;
         }
     }
     
-    // 页面加载执行
     document.addEventListener('DOMContentLoaded', renderNavigation);
 </script>
 </body>
