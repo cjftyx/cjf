@@ -41,6 +41,11 @@
       "category": "办公网",
       "name": "无线换装调试",
       "url": "http://10.48.25.208:58961/static/debug.html"
+    },
+    {
+      "action": "delete",
+      "category": "常用类",
+      "name": "今日头条"
     }
   ]
 }
