@@ -35,6 +35,12 @@
       "category": "办公类",
       "name": "河北人事考试网",
       "url": "https://www.hebpta.com.cn/"
+    },
+    {
+      "action": "add",
+      "category": "办公网",
+      "name": "无线换装调试",
+      "url": "http://10.48.25.208:58961/static/debug.html"
     }
   ]
 }
