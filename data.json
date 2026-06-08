@@ -10,8 +10,8 @@
     { "name": "即梦", "url": "https://jimeng.jianying.com/" }
   ],
   "办公网": [
-    { "name": "公司内网", "url": "http://www.shtl.chnenergy.com.cn/" },
-    { "name": "国家能源集团", "url": "http://www.chnenergy.com.cn/" },
+    { "name": "公司", "url": "http://www.shtl.chnenergy.com.cn/" },
+    { "name": "集团", "url": "http://www.chnenergy.com.cn/" },
     { "name": "中心交班会信息表", "url": "https://docs.qq.com/sheet/DTmhicHFlUFJWU0RS?tab=js3ngz" },
     { "name": "LMD平台", "url": "https://10.48.34.75:8888/lmd/app/login.html" },
     { "name": "车载设备管理平台", "url": "https://10.48.34.75:8888/glpt/login/login.html" },
