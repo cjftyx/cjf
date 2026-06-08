@@ -69,6 +69,10 @@
     {
       "name": "LKJ程序版本登记表",
       "url": "https://docs.qq.com/sheet/DTHNxaGVETkZKTmNV?tab=000001"
+    },
+    {
+      "name": "无线换装调试",
+      "url": "http://10.48.25.208:58961/static/debug.html"
     }
   ],
   "其他常用类": [
