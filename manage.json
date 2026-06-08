@@ -23,6 +23,12 @@
       "category": "常用类",
       "name": "今日头条",
       "url": "https://www.toutiao.com/"
+    },
+    {
+      "action": "add",
+      "category": "办公类",
+      "name": "阳光高考",
+      "url": "https://gaokao.chsi.com.cn/"
     }
   ]
 }
