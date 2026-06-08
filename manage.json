@@ -51,6 +51,11 @@
       "action": "delete",
       "category": "工具类",
       "name": "待用"
+    },
+    {
+      "action": "delete",
+      "category": "工具类",
+      "name": "百度"
     }
   ]
 }
