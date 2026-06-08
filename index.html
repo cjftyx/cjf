@@ -2,149 +2,333 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的收藏夹</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>我的导航站 | 常用链接收藏</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f7fa;
-            padding: 20px;
+            background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+            font-family: 'Segoe UI', 'Roboto', 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 2rem 1.5rem;
             min-height: 100vh;
         }
-        .container {
+
+        /* 主容器 */
+        .dashboard {
             max-width: 1400px;
             margin: 0 auto;
         }
-        h1 {
+
+        /* 头部 */
+        .header {
             text-align: center;
-            color: #1a1a2e;
-            margin-bottom: 30px;
-            font-size: 2rem;
+            margin-bottom: 3rem;
         }
-        .category {
-            margin-bottom: 40px;
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .category-title {
-            font-size: 1.5rem;
+        .header h1 {
+            font-size: 2.5rem;
             font-weight: 600;
-            color: #1e3c72;
-            border-left: 5px solid #1e3c72;
-            padding-left: 15px;
-            margin-bottom: 20px;
+            background: linear-gradient(135deg, #1e2b3c, #2c4c6e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
         }
-        .card-grid {
+        .header h1::before {
+            content: "🔖";
+            font-size: 2rem;
+            background: none;
+            -webkit-background-clip: unset;
+            color: #2c4c6e;
+        }
+        .sub {
+            color: #5b7a9a;
+            margin-top: 0.5rem;
+            font-weight: 400;
+            border-bottom: 1px solid #cbdde9;
+            display: inline-block;
+            padding-bottom: 0.25rem;
+        }
+
+        /* 分类卡片容器 */
+        .category-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* 单个分类区块 */
+        .category-block {
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            padding: 1.5rem 1.8rem 2rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+        .category-block:hover {
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.85);
+        }
+
+        /* 分类标题 */
+        .category-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 6px solid;
+            padding-left: 18px;
+            letter-spacing: -0.2px;
+        }
+        /* 动态分类标题颜色（根据分类名自动分配，也可统一，这里用固定色系渐变） */
+        .category-title span {
+            background: linear-gradient(120deg, #1f4870, #2c6288);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* 链接卡片网格 */
+        .link-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
+            gap: 1.2rem;
         }
-        .card {
-            background: #f8f9fc;
-            border-radius: 12px;
-            padding: 16px;
-            transition: all 0.2s ease;
-            border: 1px solid #e9ecef;
+
+        /* 单个链接卡片 */
+        .link-card {
+            background: white;
+            border-radius: 1.2rem;
+            padding: 1rem 1rem 1rem 1.2rem;
+            transition: all 0.25s ease;
+            border: 1px solid #e9edf2;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        .link-card:hover {
+            transform: translateY(-4px);
+            border-color: #cbddea;
+            box-shadow: 0 12px 18px -8px rgba(0,0,0,0.12);
             background: #ffffff;
         }
-        .card a {
+        .link-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            background: #f0f4f9;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+        }
+        .link-info {
+            flex: 1;
+            overflow: hidden;
+        }
+        .link-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1f2f3e;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .link-url {
+            font-size: 0.7rem;
+            color: #7f8d9c;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 4px;
+        }
+        a {
             text-decoration: none;
-            color: #2c3e50;
-            font-weight: 500;
-            font-size: 1.1rem;
             display: block;
-            word-break: break-all;
         }
-        .card a:hover {
-            color: #1e3c72;
-        }
-        .url {
-            font-size: 0.75rem;
-            color: #7f8c8d;
-            margin-top: 8px;
-            word-break: break-all;
-        }
-        .loading {
+
+        /* 空状态提示 */
+        .empty-msg {
             text-align: center;
-            padding: 50px;
-            color: #7f8c8d;
+            padding: 2rem;
+            background: #f8fafc;
+            border-radius: 2rem;
+            color: #6c86a3;
+            font-style: italic;
         }
-        @media (max-width: 600px) {
-            .card-grid {
-                grid-template-columns: 1fr;
-            }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #8ba0b5;
+            border-top: 1px solid #dce5ec;
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 640px) {
             body {
-                padding: 12px;
+                padding: 1rem;
+            }
+            .category-block {
+                padding: 1.2rem;
+            }
+            .category-title {
+                font-size: 1.4rem;
+            }
+            .link-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .link-card {
+                padding: 0.75rem;
+            }
+            .header h1 {
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📚 我的网站收藏夹</h1>
-        <div id="content" class="loading">加载中...</div>
+<div class="dashboard">
+    <div class="header">
+        <h1>📌 我的网址舱</h1>
+        <div class="sub">一键直达 · 分类收纳</div>
     </div>
 
-    <script>
-        // 读取 data.json 文件并渲染页面
-        fetch('data.json')
-            .then(response => {
-                if (!response.ok) throw new Error('数据文件加载失败');
-                return response.json();
-            })
-            .then(data => {
-                const container = document.getElementById('content');
-                container.innerHTML = '';
+    <div id="linksContainer" class="category-grid">
+        <div class="empty-msg">✨ 加载中，马上就好...</div>
+    </div>
+    <div class="footer">
+        保持热爱 · 高效上网
+    </div>
+</div>
+
+<script>
+    // 读取 data.json 并动态渲染
+    fetch('data.json')
+        .then(response => {
+            if (!response.ok) throw new Error('数据文件加载失败，请确保 data.json 存在');
+            return response.json();
+        })
+        .then(data => {
+            const container = document.getElementById('linksContainer');
+            container.innerHTML = '';
+
+            // 获取所有分类，并按自定义顺序排列（可选）
+            let categories = Object.keys(data);
+            if (categories.length === 0) {
+                container.innerHTML = '<div class="empty-msg">📭 暂无任何链接，快去添加你的常用网站吧～</div>';
+                return;
+            }
+
+            // 可选：调整分类显示顺序（按你喜好，这里保留原顺序，但可以手动调整）
+            // 例如优先显示 "办公类","工具类","生活类" 等，如果你需要我可以添加排序逻辑
+            // 为了整洁，保持原有顺序，但你可以在 data.json 中调整分类顺序
+
+            categories.forEach(cat => {
+                const links = data[cat];
+                if (!links || links.length === 0) return;
+
+                // 为每个分类生成一块
+                const block = document.createElement('div');
+                block.className = 'category-block';
+
+                // 分类标题区域，增加一个小图标（根据分类名自动配一个emoji）
+                let categoryEmoji = '📁';
+                if (cat.includes('办公')) categoryEmoji = '💼';
+                else if (cat.includes('工具')) categoryEmoji = '🛠️';
+                else if (cat.includes('生活')) categoryEmoji = '🏠';
+                else if (cat.includes('常用')) categoryEmoji = '⭐';
+                else if (cat.includes('银行') || cat.includes('金融')) categoryEmoji = '🏦';
+                else if (cat.includes('学习') || cat.includes('教育')) categoryEmoji = '📖';
+                else if (cat.includes('AI') || cat.includes('智能')) categoryEmoji = '🤖';
+                else if (cat.includes('视频') || cat.includes('影音')) categoryEmoji = '🎬';
                 
-                // 获取所有分类并排序
-                const categories = Object.keys(data).sort();
-                
-                for (const category of categories) {
-                    const links = data[category];
-                    if (!links || links.length === 0) continue;
-                    
-                    // 创建分类区块
-                    const categoryDiv = document.createElement('div');
-                    categoryDiv.className = 'category';
-                    categoryDiv.innerHTML = `
-                        <div class="category-title">📁 ${category}</div>
-                        <div class="card-grid" id="grid-${category.replace(/\s/g, '')}"></div>
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'category-title';
+                titleDiv.style.borderLeftColor = '#2c6e9e';
+                titleDiv.innerHTML = `<span>${categoryEmoji} ${escapeHtml(cat)}</span>`;
+                block.appendChild(titleDiv);
+
+                // 链接网格
+                const grid = document.createElement('div');
+                grid.className = 'link-grid';
+
+                links.forEach(link => {
+                    const card = document.createElement('a');
+                    card.href = link.url;
+                    card.target = '_blank';
+                    card.rel = 'noopener noreferrer';
+                    card.className = 'link-card';
+
+                    // 提取网站首字母或图标，简单用一个favicon? 这里直接用首字符或默认图标
+                    const firstChar = link.name ? link.name.charAt(0).toUpperCase() : '🔗';
+                    const iconHtml = `<div class="link-icon">${getIconForSite(link.name)}</div>`;
+
+                    card.innerHTML = `
+                        ${iconHtml}
+                        <div class="link-info">
+                            <div class="link-name">${escapeHtml(link.name)}</div>
+                            <div class="link-url">${escapeHtml(link.url.length > 40 ? link.url.substring(0, 40) + '…' : link.url)}</div>
+                        </div>
                     `;
-                    container.appendChild(categoryDiv);
-                    
-                    const grid = categoryDiv.querySelector(`.card-grid`);
-                    
-                    // 添加每个链接卡片
-                    links.forEach(link => {
-                        const card = document.createElement('div');
-                        card.className = 'card';
-                        card.innerHTML = `
-                            <a href="${link.url}" target="_blank" rel="noopener noreferrer">🔗 ${link.name}</a>
-                            <div class="url">${link.url}</div>
-                        `;
-                        grid.appendChild(card);
-                    });
-                }
-                
-                if (container.innerHTML === '') {
-                    container.innerHTML = '<div class="loading">暂无数据，请添加你的网站链接</div>';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('content').innerHTML = '<div class="loading">❌ 加载失败，请确保 data.json 文件存在</div>';
+                    grid.appendChild(card);
+                });
+                block.appendChild(grid);
+                container.appendChild(block);
             });
-    </script>
+        })
+        .catch(error => {
+            console.error('加载出错:', error);
+            document.getElementById('linksContainer').innerHTML = '<div class="empty-msg">⚠️ 无法加载 data.json，请检查文件是否存在且格式正确。</div>';
+        });
+
+    // 辅助：简单的防XSS
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // 根据网站名称返回一个合适的小图标（纯文本emoji）
+    function getIconForSite(name) {
+        if (!name) return '🔗';
+        const lower = name.toLowerCase();
+        if (lower.includes('百度')) return '🐻';
+        if (lower.includes('阿里') || lower.includes('淘宝')) return '🛒';
+        if (lower.includes('b站') || lower.includes('bilibili')) return '📺';
+        if (lower.includes('抖音')) return '🎵';
+        if (lower.includes('github')) return '🐙';
+        if (lower.includes('腾讯') || lower.includes('微信')) return '💬';
+        if (lower.includes('文档') || lower.includes('办公')) return '📄';
+        if (lower.includes('银行') || lower.includes('中国银行') || lower.includes('建设银行')) return '🏦';
+        if (lower.includes('火车票') || lower.includes('12306')) return '🚆';
+        if (lower.includes('天气')) return '☁️';
+        if (lower.includes('pdf') || lower.includes('工具')) return '🔧';
+        if (lower.includes('ai') || lower.includes('文心') || lower.includes('kimi') || lower.includes('智谱')) return '🧠';
+        return '🌐';
+    }
+</script>
 </body>
 </html>
