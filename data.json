@@ -73,6 +73,10 @@
     {
       "name": "无线换装调试",
       "url": "http://10.48.25.208:58961/static/debug.html"
+    },
+    {
+      "name": "数据芯片换装记录",
+      "url": "https://docs.qq.com/sheet/DTGpOV3VnWnFrY0p1"
     }
   ],
   "其他常用类": [
