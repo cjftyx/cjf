@@ -67,6 +67,12 @@
       "action": "delete",
       "category": "其他常用网站",
       "name": "0430网站库"
+    },
+    {
+      "action": "add",
+      "category": "办公网",
+      "name": "数据芯片换装记录",
+      "url": "https://docs.qq.com/sheet/DTGpOV3VnWnFrY0p1"
     }
   ]
 }
