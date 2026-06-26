@@ -211,6 +211,10 @@
     {
       "name": "github",
       "url": "github.com"
+    },
+    {
+      "name": "TiDB Cloud",
+      "url": "https://tidbcloud.com/"
     }
   ],
   "其他常用网站": [
