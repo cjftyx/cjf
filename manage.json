@@ -96,6 +96,12 @@
       "action": "delete",
       "category": "工具类",
       "name": "github"
+    },
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "github",
+      "url": "https://github.com/"
     }
   ]
 }
