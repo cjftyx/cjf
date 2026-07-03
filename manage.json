@@ -91,6 +91,11 @@
       "category": "工具类",
       "name": "TiDB Cloud",
       "url": "https://tidbcloud.com/"
+    },
+    {
+      "action": "delete",
+      "category": "工具类",
+      "name": "github"
     }
   ]
 }
