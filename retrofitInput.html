@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>换装录入</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; padding: 20px; }
+    .container { max-width: 600px; margin: 0 auto; }
+
+    /* ----- 导航栏样式 ----- */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      background: #ffffff;
+      padding: 12px 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 24px;
+    }
+    .nav-brand a {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a3c6e;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    .nav-menu li a {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 14px;
+      color: #555;
+      transition: background 0.2s;
+    }
+    .nav-menu li a:hover {
+      background: #f0f4fa;
+    }
+    .nav-menu li a.active {
+      background: #1a3c6e;
+      color: #fff;
+    }
+    @media (max-width: 600px) {
+      .top-nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .nav-menu {
+        justify-content: center;
+      }
+    }
+
+    /* ----- 页面原有样式 ----- */
+    .card { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .title { font-size: 20px; font-weight: 600; margin-bottom: 16px; display: block; }
+    .input-group { display: flex; gap: 10px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+    .input-group input { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+    .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; cursor: pointer; }
+    .btn-primary { background: #007aff; color: #fff; }
+    .btn-success { background: #34c759; color: #fff; }
+    .btn-secondary { background: #f0f0f0; color: #333; }
+    .btn-block { width: 100%; margin-top: 10px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 14px; color: #333; margin-bottom: 4px; }
+    .form-group input { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+    .form-group .datetime-input { background: #fff; }
+    .train-header { display: flex; justify-content: space-between; margin-bottom: 20px; padding: 10px 0; border-bottom: 2px solid #f0f0f0; }
+    .train-no { font-size: 20px; font-weight: 600; }
+    .unit { color: #888; font-size: 14px; }
+    .preview { background: #f8f9fa; padding: 16px; border-radius: 8px; margin: 16px 0; }
+    .preview p { margin: 4px 0; font-size: 14px; }
+    .btn-group { display: flex; gap: 12px; }
+    .btn-group .btn { flex: 1; }
+    .loading { text-align: center; padding: 30px; color: #007aff; }
+  </style>
+</head>
+<body>
+  <!-- ====== 导航栏 ====== -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <a href="lkjset.html">🚂 LKJ数据换装管控平台</a>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="retrofitSummary.html" data-page="retrofitSummary">换装进度</a></li>
+      <li><a href="retrofitInput.html" data-page="retrofitInput">换装录入</a></li>
+      <li><a href="unretrofitSummary.html" data-page="unretrofitSummary">未换装汇总</a></li>
+      <li><a href="analysis.html" data-page="analysis">换装分析</a></li>
+      <li><a href="Summary.html" data-page="Summary">换装汇总</a></li>
+    </ul>
+  </nav>
+
+  <!-- ====== 原有内容 ====== -->
+  <div id="app" class="container">
+    <!-- 加载状态 -->
+    <div v-if="loading" class="loading">⏳ 正在查询车号...</div>
+
+    <!-- 车号输入 -->
+    <div v-else-if="!trainInfo" class="card">
+      <span class="title">🔍 请输入车号</span>
+      <div class="input-group">
+        <input v-model="searchTrainNo" placeholder="例如：HXD3D-0001" @keyup.enter="checkTrain" />
+        <button class="btn btn-primary" @click="checkTrain">确认</button>
+      </div>
+    </div>
+
+    <!-- 换装表单 -->
+    <div v-else class="card">
+      <div class="train-header">
+        <span class="train-no">🚂 {{ trainInfo.train_no }}</span>
+        <span class="unit">配属：{{ trainInfo.unit || '无' }}</span>
+      </div>
+
+      <div class="form-group">
+        <label>A节轮径</label>
+        <input v-model="form.wheel_a" placeholder="请输入A节轮径值" />
+      </div>
+      <div class="form-group">
+        <label>B节轮径</label>
+        <input v-model="form.wheel_b" placeholder="请输入B节轮径值" />
+      </div>
+      <div class="form-group">
+        <label>开始时间</label>
+        <input type="datetime-local" v-model="form.start_time" class="datetime-input" />
+      </div>
+      <div class="form-group">
+        <label>结束时间</label>
+        <input type="datetime-local" v-model="form.end_time" class="datetime-input" />
+      </div>
+      <div class="form-group">
+        <label>作业人</label>
+        <input v-model="form.operator" placeholder="请输入作业人" />
+      </div>
+      <div class="form-group">
+        <label>复合人</label>
+        <input v-model="form.reviewer" placeholder="请输入复合人" />
+      </div>
+      <div class="form-group">
+        <label>换装地点</label>
+        <input v-model="form.location" placeholder="请输入换装地点" />
+      </div>
+
+      <div class="preview" v-if="showPreview">
+        <p><strong>请确认以下信息：</strong></p>
+        <p>车号：{{ trainInfo.train_no }}</p>
+        <p>A节轮径：{{ form.wheel_a }}</p>
+        <p>B节轮径：{{ form.wheel_b }}</p>
+        <p>开始时间：{{ form.start_time }}</p>
+        <p>结束时间：{{ form.end_time }}</p>
+        <p>作业人：{{ form.operator }}</p>
+        <p>复合人：{{ form.reviewer }}</p>
+        <p>换装地点：{{ form.location }}</p>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" @click="resetForm">返回</button>
+        <button class="btn btn-primary" @click="submitRetrofit">
+          {{ showPreview ? '确认提交' : '预览' }}
+        </button>
+      </div>
+    </div>
+  </div>
+<script>
+    // ... 原有的 request、base64、Vue 代码（保持不变） ...
+    // 以下是高亮导航的脚本（放在 DOM 加载后）
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        if (link.dataset.page === currentPage) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+  <script>
+    const DATA_APP_ID = 'dataapp-CkXLlQKQ';
+    const PUBLIC_KEY = '838OAA20';
+    const PRIVATE_KEY = '28941d11-dddd-4e10-8bff-c788a841c911';
+    const BASE_URL = `https://ap-northeast-1.data.tidbcloud.com/api/v1beta/app/${DATA_APP_ID}`;
+
+    function base64Encode(str) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      let output = '';
+      let i = 0;
+      while (i < str.length) {
+        const c1 = str.charCodeAt(i++) & 0xff;
+        const c2 = str.charCodeAt(i++) & 0xff;
+        const c3 = str.charCodeAt(i++) & 0xff;
+        const enc1 = c1 >> 2;
+        const enc2 = ((c1 & 0x03) << 4) | (c2 >> 4);
+        let enc3 = ((c2 & 0x0f) << 2) | (c3 >> 6);
+        let enc4 = c3 & 0x3f;
+        if (isNaN(c2)) { enc3 = enc4 = 64; } else if (isNaN(c3)) { enc4 = 64; }
+        output += chars.charAt(enc1) + chars.charAt(enc2) + chars.charAt(enc3) + chars.charAt(enc4);
+      }
+      return output;
+    }
+
+    function request(options) {
+      return new Promise((resolve, reject) => {
+        const token = base64Encode(PUBLIC_KEY + ':' + PRIVATE_KEY);
+        fetch(BASE_URL + options.url, {
+          method: options.method || 'GET',
+          headers: {
+            'Authorization': 'Basic ' + token,
+            'Content-Type': 'application/json'
+          },
+          body: options.data ? JSON.stringify(options.data) : undefined
+        })
+        .then(res => {
+          if (!res.ok) {
+            return res.json().then(data => Promise.reject({ status: res.status, data }));
+          }
+          return res.json();
+        })
+        .then(resolve)
+        .catch(reject);
+      });
+    }
+
+    function parseData(res) {
+      if (Array.isArray(res)) return res;
+      if (res && res.data && Array.isArray(res.data.rows)) return res.data.rows;
+      if (res && Array.isArray(res.data)) return res.data;
+      return [];
+    }
+
+    const { createApp, ref, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        const searchTrainNo = ref('');
+        const trainInfo = ref(null);
+        const loading = ref(false);
+        const showPreview = ref(false);
+        const form = ref({
+          wheel_a: '',
+          wheel_b: '',
+          start_time: '',
+          end_time: '',
+          operator: '',
+          reviewer: '',
+          location: ''
+        });
+
+        // 从 URL 获取参数
+        function getUrlParam(name) {
+          const params = new URLSearchParams(window.location.search);
+          return params.get(name);
+        }
+
+        // 查询车号
+        async function checkTrain() {
+          const trainNo = searchTrainNo.value.trim();
+          if (!trainNo) {
+            alert('请输入车号');
+            return;
+          }
+          loading.value = true;
+          try {
+            const res = await request({ url: '/endpoint/trains', method: 'GET' });
+            const list = parseData(res);
+            const found = list.find(item => item.train_no === trainNo);
+            if (found) {
+              // 检查是否已换装
+              const retrofitRes = await request({ url: '/endpoint/retrofit/list', method: 'GET' });
+              const retrofitList = parseData(retrofitRes);
+              const hasRetrofit = retrofitList.some(r => r.train_no === trainNo);
+              if (hasRetrofit) {
+                alert('该车号已完成换装，不可重复录入');
+                trainInfo.value = null;
+                loading.value = false;
+                return;
+              }
+              trainInfo.value = found;
+              showPreview.value = false;
+              // 清空表单
+              form.value = { wheel_a: '', wheel_b: '', start_time: '', end_time: '', operator: '', reviewer: '', location: '' };
+            } else {
+              alert('无此车号，请手动输入');
+              trainInfo.value = null;
+            }
+          } catch (e) {
+            alert('查询失败: ' + (e.data?.message || e.message));
+          }
+          loading.value = false;
+        }
+
+        // 重置表单
+        function resetForm() {
+          trainInfo.value = null;
+          searchTrainNo.value = '';
+          showPreview.value = false;
+          // 如果有历史记录，可能返回上一页
+          if (document.referrer && document.referrer.includes('unretrofitSummary')) {
+            window.history.back();
+          }
+        }
+
+        // 提交换装
+        async function submitRetrofit() {
+          // 校验必填
+          if (!form.value.wheel_a || !form.value.wheel_b || !form.value.start_time || !form.value.end_time) {
+            alert('请填写完整信息（轮径、开始/结束时间必填）');
+            return;
+          }
+          if (!showPreview.value) {
+            showPreview.value = true;
+            return;
+          }
+          // 提交
+          try {
+            await request({
+              url: '/endpoint/retrofit/add',
+              method: 'POST',
+              data: {
+                train_no: trainInfo.value.train_no,
+                wheel_a: form.value.wheel_a,
+                wheel_b: form.value.wheel_b,
+                start_time: form.value.start_time.replace('T', ' ') + ':00', // 转换为 MySQL 格式
+                end_time: form.value.end_time.replace('T', ' ') + ':00',
+                operator: form.value.operator,
+                reviewer: form.value.reviewer,
+                location: form.value.location
+              }
+            });
+            alert('提交成功！');
+            // 返回上一页（如未换装汇总）
+            if (document.referrer && document.referrer.includes('unretrofitSummary')) {
+              window.history.back();
+            } else {
+              resetForm();
+            }
+          } catch (e) {
+            alert('提交失败: ' + (e.data?.message || e.message));
+          }
+        }
+
+        // 初始化：如果 URL 有 train_no 参数，自动查询
+        onMounted(() => {
+          const trainNoParam = getUrlParam('train_no');
+          if (trainNoParam) {
+            searchTrainNo.value = trainNoParam;
+            checkTrain();
+          }
+        });
+
+        return {
+          searchTrainNo,
+          trainInfo,
+          loading,
+          showPreview,
+          form,
+          checkTrain,
+          resetForm,
+          submitRetrofit
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
