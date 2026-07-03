@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>未换装汇总</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; padding: 20px; }
+    .container { max-width: 1000px; margin: 0 auto; }
+	/* ----- 导航栏样式 ----- */
+	.top-nav {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  flex-wrap: wrap;
+	  background: #ffffff;
+	  padding: 12px 24px;
+	  border-radius: 12px;
+	  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+	  margin-bottom: 24px;
+	}
+	.nav-brand a {
+	  font-size: 20px;
+	  font-weight: 700;
+	  color: #1a3c6e;
+	  text-decoration: none;
+	  letter-spacing: 1px;
+	}
+	.nav-menu {
+	  list-style: none;
+	  display: flex;
+	  gap: 6px;
+	  margin: 0;
+	  padding: 0;
+	  flex-wrap: wrap;
+	}
+	.nav-menu li a {
+	  display: inline-block;
+	  padding: 6px 14px;
+	  border-radius: 20px;
+	  text-decoration: none;
+	  font-size: 14px;
+	  color: #555;
+	  transition: background 0.2s;
+	}
+	.nav-menu li a:hover {
+	  background: #f0f4fa;
+	}
+	.nav-menu li a.active {
+	  background: #1a3c6e;
+	  color: #fff;
+	}
+	.list-item .model {
+	  color: #666;
+	  font-size: 14px;
+	  background: #eef3f8;
+	  padding: 0 10px;
+	  border-radius: 12px;
+	}
+	.stats-row {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 20px;
+	  margin: 10px 0 16px;
+	  padding: 10px;
+	  background: #f8f9fa;
+	  border-radius: 8px;
+	}
+	.stats-item {
+	  font-size: 14px;
+	  color: #333;
+	}
+	.stats-item strong {
+	  color: #007aff;
+	}
+	@media (max-width: 600px) {
+	  .top-nav {
+	    flex-direction: column;
+	    align-items: stretch;
+	    gap: 10px;
+	  }
+	  
+	  .nav-menu {
+	    justify-content: center;
+	  }
+	}
+    .card { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .title { font-size: 20px; font-weight: 600; margin-bottom: 16px; display: block; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+    .btn { padding: 8px 16px; font-size: 14px; border-radius: 8px; border: none; cursor: pointer; }
+    .btn-primary { background: #007aff; color: #fff; }
+    .btn-success { background: #34c759; color: #fff; }
+    .btn-outline { background: #f0f0f0; color: #333; }
+    .btn-sm { padding: 4px 12px; font-size: 12px; border-radius: 20px; }
+    .list-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; flex-wrap: wrap; }
+    .list-item .info { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .list-item .train-no { font-weight: 600; font-size: 16px; }
+    .list-item .unit { color: #888; font-size: 14px; }
+    .list-item .remark { color: #666; font-size: 14px; }
+    .list-item .actions { display: flex; gap: 6px; }
+    .empty { text-align: center; color: #999; padding: 30px 0; }
+    .quick-row { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+    .quick-row input { flex: 1; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <!-- ====== 导航栏 ====== -->
+  <nav class="top-nav">
+    <div class="nav-brand">
+      <a href="lkjset.html">🚂 LKJ数据换装管控平台</a>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="retrofitSummary.html" data-page="retrofitSummary">换装进度</a></li>
+      <li><a href="retrofitInput.html" data-page="retrofitInput">换装录入</a></li>
+      <li><a href="unretrofitSummary.html" data-page="unretrofitSummary">未换装汇总</a></li>
+      <li><a href="analysis.html" data-page="analysis">换装分析</a></li>
+      <li><a href="Summary.html" data-page="Summary">换装汇总</a></li>
+    </ul>
+  </nav>
+  
+  <div id="app" class="container">
+    <!-- 快捷换装 -->
+    <div class="card">
+      <span class="title">🚀 快速换装</span>
+      <div class="quick-row">
+        <input v-model="manualTrainNo" placeholder="请输入车号" />
+        <button class="btn btn-success" @click="handleManualRetrofit">换装</button>
+      </div>
+    </div>
+
+    <!-- 未换装列表 -->
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+        <span class="title" style="margin-bottom:0;">⏳ 未换装车号列表</span>
+        </div>
+		<div style="display:flex; gap:8px;">
+          <button class="btn btn-outline btn-sm" @click="loadData">刷新</button>
+          <button class="btn btn-primary btn-sm" @click="sortMode='trainNo'">按车号</button>
+          <button class="btn btn-primary btn-sm" @click="sortMode='unit'">按单位</button>
+        </div>
+      </div>
+	  <!-- 统计信息独立一行 -->
+	  <div class="stats-row">
+	    <div class="stats-item">🚂 未换装总数：<strong>{{ unretrofitList.length }}</strong></div>
+	    <div class="stats-item" v-for="(count, unit) in unitStats" :key="unit">
+	      {{ unit || '无单位' }}：<strong>{{ count }}</strong>
+	    </div>
+	  </div>
+      <div v-if="sortedList.length === 0" class="empty">所有车号已完成换装</div>
+      <div v-for="item in sortedList" :key="item.train_no" class="list-item">
+        <div class="info">
+          <span class="train-no">{{ item.train_no }}</span>
+              <span class="model" v-if="item.model">型号：{{ item.model }}</span>
+              <span class="unit">{{ item.unit || '无单位' }}</span>
+              <span class="remark" v-if="item.remark">备注：{{ item.remark }}</span>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary btn-sm" @click="showNoteInput(item)">备注</button>
+          <button class="btn btn-success btn-sm" @click="handleRetrofit(item.train_no)">换装</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+      // ... 原有的 request、base64、Vue 代码（保持不变） ...
+      // 以下是高亮导航的脚本（放在 DOM 加载后）
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentPage = window.location.pathname.split('/').pop().replace('.html', '');
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+          if (link.dataset.page === currentPage) {
+            link.classList.add('active');
+          }
+        });
+      });
+    </script>
+  <script>
+    const DATA_APP_ID = 'dataapp-CkXLlQKQ';
+    const PUBLIC_KEY = '838OAA20';
+    const PRIVATE_KEY = '28941d11-dddd-4e10-8bff-c788a841c911';
+    const BASE_URL = `https://ap-northeast-1.data.tidbcloud.com/api/v1beta/app/${DATA_APP_ID}`;
+
+    function base64Encode(str) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+      let output = '';
+      let i = 0;
+      while (i < str.length) {
+        const c1 = str.charCodeAt(i++) & 0xff;
+        const c2 = str.charCodeAt(i++) & 0xff;
+        const c3 = str.charCodeAt(i++) & 0xff;
+        const enc1 = c1 >> 2;
+        const enc2 = ((c1 & 0x03) << 4) | (c2 >> 4);
+        let enc3 = ((c2 & 0x0f) << 2) | (c3 >> 6);
+        let enc4 = c3 & 0x3f;
+        if (isNaN(c2)) { enc3 = enc4 = 64; } else if (isNaN(c3)) { enc4 = 64; }
+        output += chars.charAt(enc1) + chars.charAt(enc2) + chars.charAt(enc3) + chars.charAt(enc4);
+      }
+      return output;
+    }
+
+    function request(options) {
+      return new Promise((resolve, reject) => {
+        const token = base64Encode(PUBLIC_KEY + ':' + PRIVATE_KEY);
+        fetch(BASE_URL + options.url, {
+          method: options.method || 'GET',
+          headers: {
+            'Authorization': 'Basic ' + token,
+            'Content-Type': 'application/json'
+          },
+          body: options.data ? JSON.stringify(options.data) : undefined
+        })
+        .then(res => {
+          if (!res.ok) {
+            return res.json().then(data => Promise.reject({ status: res.status, data }));
+          }
+          return res.json();
+        })
+        .then(resolve)
+        .catch(reject);
+      });
+    }
+
+    function parseData(res) {
+      if (Array.isArray(res)) return res;
+      if (res && res.data && Array.isArray(res.data.rows)) return res.data.rows;
+      if (res && Array.isArray(res.data)) return res.data;
+      return [];
+    }
+
+    const { createApp, ref, computed, onMounted } = Vue;
+
+    createApp({
+      setup() {
+        const unretrofitList = ref([]);
+        const manualTrainNo = ref('');
+        const sortMode = ref('trainNo');
+        const unitStats = computed(() => {
+          const stats = {};
+          unretrofitList.value.forEach(item => {
+            const unit = item.unit || '无单位';
+            stats[unit] = (stats[unit] || 0) + 1;
+          });
+          return stats;
+        });
+        async function loadData() {
+          try {
+            const trainsRes = await request({ url: '/endpoint/trains', method: 'GET' });
+            const trains = parseData(trainsRes);
+            const retrofitRes = await request({ url: '/endpoint/retrofit/list', method: 'GET' });
+            const retrofitList = parseData(retrofitRes);
+            const completedSet = new Set(retrofitList.map(r => r.train_no));
+            unretrofitList.value = trains.filter(t => !completedSet.has(t.train_no));
+          } catch (e) {
+            alert('加载数据失败: ' + (e.data?.message || e.message));
+          }
+        }
+
+        const sortedList = computed(() => {
+          const list = [...unretrofitList.value];
+          if (sortMode.value === 'trainNo') {
+            list.sort((a, b) => a.train_no.localeCompare(b.train_no, undefined, { numeric: true }));
+          } else if (sortMode.value === 'unit') {
+            list.sort((a, b) => {
+              const unitA = a.unit || '';
+              const unitB = b.unit || '';
+              const unitComp = unitA.localeCompare(unitB);
+              if (unitComp !== 0) return unitComp;
+              return a.train_no.localeCompare(b.train_no, undefined, { numeric: true });
+            });
+          }
+          return list;
+        });
+
+        function showNoteInput(item) {
+          const note = prompt('请输入备注信息：', item.remark || '');
+          if (note === null) return;
+          request({
+            url: '/endpoint/retrofit/note',
+            method: 'POST',
+            data: { train_no: item.train_no, remark: note }
+          })
+          .then(() => {
+            item.remark = note;
+            alert('备注保存成功');
+          })
+          .catch(e => alert('保存失败: ' + (e.data?.message || e.message)));
+        }
+
+        function handleRetrofit(trainNo) {
+          window.location.href = `retrofitInput.html?train_no=${encodeURIComponent(trainNo)}`;
+        }
+
+        function handleManualRetrofit() {
+          const trainNo = manualTrainNo.value.trim();
+          if (!trainNo) { alert('请输入车号'); return; }
+          window.location.href = `retrofitInput.html?train_no=${encodeURIComponent(trainNo)}`;
+        }
+
+        onMounted(() => {
+          loadData();
+        });
+
+        return { unretrofitList, manualTrainNo, sortMode, sortedList, unitStats, loadData, showNoteInput, handleRetrofit, handleManualRetrofit };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
