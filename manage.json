@@ -102,6 +102,12 @@
       "category": "工具类",
       "name": "github",
       "url": "https://github.com/"
+    },
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "微信开放平台",
+      "url": "https://mp.weixin.qq.com/"
     }
   ]
 }
