@@ -108,6 +108,12 @@
       "category": "工具类",
       "name": "微信开放平台",
       "url": "https://mp.weixin.qq.com/"
+    },
+    {
+      "action": "add",
+      "category": "其他常用网站",
+      "name": "东方财富网",
+      "url": "https://www.eastmoney.com/"
     }
   ]
 }
