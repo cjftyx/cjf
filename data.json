@@ -213,12 +213,12 @@
       "url": "https://tidbcloud.com/"
     },
     {
-      "name": "github",
-      "url": "https://github.com/"
-    },
-    {
       "name": "微信开放平台",
       "url": "https://mp.weixin.qq.com/"
+    },
+    {
+      "name": "github",
+      "url": "https://github.com/"
     }
   ],
   "其他常用网站": [
@@ -249,6 +249,10 @@
     {
       "name": "片多多",
       "url": "http://www.bjyojm.com/"
+    },
+    {
+      "name": "东方财富网",
+      "url": "https://www.eastmoney.com/"
     }
   ]
 }
