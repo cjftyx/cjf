@@ -114,6 +114,11 @@
       "category": "其他常用网站",
       "name": "东方财富网",
       "url": "https://www.eastmoney.com/"
+    },
+    {
+      "action": "delete",
+      "category": "其他常用网站",
+      "name": "片多多"
     }
   ]
 }
