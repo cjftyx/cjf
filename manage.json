@@ -119,6 +119,12 @@
       "action": "delete",
       "category": "其他常用网站",
       "name": "片多多"
+    },
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "中文github",
+      "url": "https://git.bdnb.cn/"
     }
   ]
 }
