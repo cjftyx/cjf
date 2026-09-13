@@ -219,6 +219,10 @@
     {
       "name": "github",
       "url": "https://github.com/"
+    },
+    {
+      "name": "中文github",
+      "url": "https://git.bdnb.cn/"
     }
   ],
   "其他常用网站": [
