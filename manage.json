@@ -125,6 +125,12 @@
       "category": "工具类",
       "name": "中文github",
       "url": "https://git.bdnb.cn/"
+    },
+    {
+      "action": "add",
+      "category": "其他常用网站",
+      "name": "吾爱破解",
+      "url": "https://www.52pojie.cn/"
     }
   ]
 }
