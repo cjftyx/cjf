@@ -217,12 +217,12 @@
       "url": "https://mp.weixin.qq.com/"
     },
     {
-      "name": "github",
-      "url": "https://github.com/"
-    },
-    {
       "name": "中文github",
       "url": "https://git.bdnb.cn/"
+    },
+    {
+      "name": "github",
+      "url": "https://github.com/"
     }
   ],
   "其他常用网站": [
@@ -253,6 +253,10 @@
     {
       "name": "东方财富网",
       "url": "https://www.eastmoney.com/"
+    },
+    {
+      "name": "吾爱破解",
+      "url": "https://www.52pojie.cn/"
     }
   ]
 }
