@@ -131,6 +131,12 @@
       "category": "其他常用网站",
       "name": "吾爱破解",
       "url": "https://www.52pojie.cn/"
+    },
+    {
+      "action": "add",
+      "category": "办公类",
+      "name": "agnest智能AI模型",
+      "url": "https://www.agnes-ai.com/"
     }
   ]
 }
