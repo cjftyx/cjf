@@ -137,6 +137,12 @@
       "category": "办公类",
       "name": "agnest智能AI模型",
       "url": "https://www.agnes-ai.com/"
+    },
+    {
+      "action": "add",
+      "category": "其他常用网站",
+      "name": "知网阅读",
+      "url": "https://mall.cnki.net/"
     }
   ]
 }
