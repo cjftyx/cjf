@@ -143,6 +143,12 @@
       "category": "其他常用网站",
       "name": "知网阅读",
       "url": "https://mall.cnki.net/"
+    },
+    {
+      "action": "add",
+      "category": "其他常用网站",
+      "name": "在线visio",
+      "url": "https://app.diagrams.net/"
     }
   ]
 }
