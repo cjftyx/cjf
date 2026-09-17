@@ -265,6 +265,10 @@
     {
       "name": "知网阅读",
       "url": "https://mall.cnki.net/"
+    },
+    {
+      "name": "在线visio",
+      "url": "https://app.diagrams.net/"
     }
   ]
 }
