@@ -149,6 +149,12 @@
       "category": "其他常用网站",
       "name": "在线visio",
       "url": "https://app.diagrams.net/"
+    },
+    {
+      "action": "add",
+      "category": "办公类",
+      "name": "chatGPT",
+      "url": "https://chatgpt.com/"
     }
   ]
 }
