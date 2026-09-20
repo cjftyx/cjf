@@ -161,6 +161,12 @@
       "category": "办公类",
       "name": "outlook",
       "url": "https://outlook.live.com/mail/"
+    },
+    {
+      "action": "add",
+      "category": "其他常用网站",
+      "name": "在线ICO",
+      "url": "https://convertico.com/"
     }
   ]
 }
