@@ -155,6 +155,12 @@
       "category": "办公类",
       "name": "chatGPT",
       "url": "https://chatgpt.com/"
+    },
+    {
+      "action": "add",
+      "category": "办公类",
+      "name": "outlook",
+      "url": "https://outlook.live.com/mail/"
     }
   ]
 }
