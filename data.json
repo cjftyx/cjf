@@ -193,6 +193,10 @@
     {
       "name": "BBC",
       "url": "https://www.bbc.com/"
+    },
+    {
+      "name": "天空新闻网",
+      "url": "https://news.sky.com/"
     }
   ],
   "工具类": [
