@@ -179,6 +179,12 @@
       "category": "生活类",
       "name": "BBC",
       "url": "https://www.bbc.com/"
+    },
+    {
+      "action": "add",
+      "category": "生活类",
+      "name": "天空新闻网",
+      "url": "https://news.sky.com/"
     }
   ]
 }
