@@ -167,6 +167,12 @@
       "category": "其他常用网站",
       "name": "在线ICO",
       "url": "https://convertico.com/"
+    },
+    {
+      "action": "add",
+      "category": "生活类",
+      "name": "油管",
+      "url": "https://www.youtube.com/"
     }
   ]
 }
