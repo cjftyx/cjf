@@ -185,6 +185,12 @@
       "category": "生活类",
       "name": "天空新闻网",
       "url": "https://news.sky.com/"
+    },
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "七牛云",
+      "url": "https://portal.qiniu.com/"
     }
   ]
 }
