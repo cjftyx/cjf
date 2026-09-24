@@ -249,12 +249,16 @@
       "url": "https://portal.qiniu.com/"
     },
     {
+      "name": "平凯云",
+      "url": "https://console.cloud.pingkai.cn/"
+    },
+    {
       "name": "github",
       "url": "https://github.com/"
     },
     {
-      "name": "平凯云",
-      "url": "https://console.cloud.pingkai.cn/"
+      "name": "三丰云",
+      "url": "https://m.sanfengyun.com/"
     }
   ],
   "其他常用网站": [
