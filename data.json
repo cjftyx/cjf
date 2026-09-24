@@ -245,12 +245,16 @@
       "url": "https://git.bdnb.cn/"
     },
     {
+      "name": "七牛云",
+      "url": "https://portal.qiniu.com/"
+    },
+    {
       "name": "github",
       "url": "https://github.com/"
     },
     {
-      "name": "七牛云",
-      "url": "https://portal.qiniu.com/"
+      "name": "平凯云",
+      "url": "https://console.cloud.pingkai.cn/"
     }
   ],
   "其他常用网站": [
