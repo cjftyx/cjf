@@ -203,6 +203,12 @@
       "category": "工具类",
       "name": "三丰云",
       "url": "https://m.sanfengyun.com/"
+    },
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "三丰云电脑",
+      "url": "https://www.sanfengyun.com/"
     }
   ]
 }
