@@ -197,6 +197,12 @@
       "category": "工具类",
       "name": "平凯云",
       "url": "https://console.cloud.pingkai.cn/"
+    },
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "三丰云",
+      "url": "https://m.sanfengyun.com/"
     }
   ]
 }
