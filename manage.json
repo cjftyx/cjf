@@ -209,6 +209,12 @@
       "category": "工具类",
       "name": "三丰云电脑",
       "url": "https://www.sanfengyun.com/"
+    },
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "cloudflare云",
+      "url": "https://www.cloudflare.com/"
     }
   ]
 }
