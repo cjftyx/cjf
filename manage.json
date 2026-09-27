@@ -215,6 +215,11 @@
       "category": "工具类",
       "name": "cloudflare云",
       "url": "https://www.cloudflare.com/"
+    },
+    {
+      "action": "delete",
+      "category": "工具类",
+      "name": "三丰云电脑"
     }
   ]
 }
