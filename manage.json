@@ -220,6 +220,11 @@
       "action": "delete",
       "category": "工具类",
       "name": "三丰云电脑"
+    },
+    {
+      "action": "delete",
+      "category": "工具类",
+      "name": "平凯云"
     }
   ]
 }
