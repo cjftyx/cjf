@@ -225,6 +225,11 @@
       "action": "delete",
       "category": "工具类",
       "name": "平凯云"
+    },
+    {
+      "action": "delete",
+      "category": "工具类",
+      "name": "三丰云"
     }
   ]
 }
