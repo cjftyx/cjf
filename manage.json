@@ -230,6 +230,12 @@
       "action": "delete",
       "category": "工具类",
       "name": "三丰云"
+    },
+    {
+      "action": "add",
+      "category": "工具类",
+      "name": "魔塔社区",
+      "url": "https://modelscope.cn/"
     }
   ]
 }
