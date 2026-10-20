@@ -51,6 +51,10 @@
     {
       "name": "outlook",
       "url": "https://outlook.live.com/mail/"
+    },
+    {
+      "name": "智谱AI",
+      "url": "https://bigmodel.cn/"
     }
   ],
   "办公网": [
@@ -253,12 +257,12 @@
       "url": "https://www.cloudflare.com/"
     },
     {
-      "name": "github",
-      "url": "https://github.com/"
-    },
-    {
       "name": "魔塔社区",
       "url": "https://modelscope.cn/"
+    },
+    {
+      "name": "github",
+      "url": "https://github.com/"
     }
   ],
   "其他常用网站": [
