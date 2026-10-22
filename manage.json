@@ -253,6 +253,12 @@
       "action": "delete",
       "category": "办公类",
       "name": "agnest智能AI模型"
+    },
+    {
+      "action": "add",
+      "category": "办公类",
+      "name": "魔塔社区",
+      "url": "https://www.modelscope.cn/"
     }
   ]
 }
